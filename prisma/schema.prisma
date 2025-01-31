@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String             @id @default(auto()) @map("_id") @db.ObjectId
+  firebaseId      String             @unique
+  name            String
+  email           String             @unique
+  ownedOrgs       Organization[]     @relation("OrgOwner")
+  organizations   OrganizationUser[]
+  tasks           Task[]             // Tasks assigned to this user
+  invites         Invite[]
+}
+
+model Organization {
+  id        String             @id @default(auto()) @map("_id") @db.ObjectId
+  name      String             @unique
+  ownerId   String             @db.ObjectId
+  owner     User               @relation("OrgOwner", fields: [ownerId], references: [id])
+  members   OrganizationUser[]
+  tasks     Task[]             // Tasks belonging to this organization
+  inivates  Invite[]
+}
+
+model Task {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String?
+  priority        String        // e.g., "High", "Medium", "Low"
+  deadline        DateTime
+  isCompleted     Boolean       @default(false)
+  assignedToId    String?       @db.ObjectId
+  assignedTo      User?         @relation(fields: [assignedToId], references: [id])
+  organizationId  String        @db.ObjectId
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+}
+
+model OrganizationUser {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  memberId        String        @db.ObjectId @unique
+  member          User          @relation(fields: [memberId], references: [id])
+  organizationId  String        @db.ObjectId @unique
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+}
+
+model Invite {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String        @db.ObjectId @unique
+  user            User          @relation(fields: [userId], references: [id])
+  organizationId  String        @db.ObjectId @unique
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+  status          String        @default("PENDING") // PENDING, ACCEPTED, REJECTED
+  createdAt       DateTime      @default(now())
+  expiresAt       DateTime?
+}

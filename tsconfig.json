@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "providers/auth-provider.jsx", "app/page.jsx", "app/layout.jsx", "firebase.ts", "app/dashboard/organization/[organizationId]/page.jsx", "app/dashboard/organization/[organizationId]/layout.jsx", "app/dashboard/organization/create/page.jsx"],
   "exclude": ["node_modules"]
 }

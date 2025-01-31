@@ -1,4 +1,4 @@
-"use server"
+
 
 import { prisma } from "@/lib/prisma";
 import InviteForm from "./_components/invite-form";

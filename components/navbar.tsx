@@ -28,6 +28,9 @@ const Navbar = () => {
             <Link href='/dashboard/invites' className='hover:underline'>
               Invites
             </Link>
+            <Link href='/dashboard/notifications' className='hover:underline'>
+              Notifications
+            </Link>
           </div>
         ) : (
           <p className='text-white text-sm'>Loading...</p>

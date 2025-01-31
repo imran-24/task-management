@@ -8,7 +8,7 @@ const InviteList = ({ invites }) => {
   const router = useRouter();
   const handleAcceptInvite = async (invite) => {
     try {
-      const newInvite = await axios.patch(`/api/invite/${invite.id}`, {
+      await axios.patch(`/api/invite/${invite.id}`, {
         response: true,
         memberId: invite.userId,
         organizationId: invite.organizationId,

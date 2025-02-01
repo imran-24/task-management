@@ -1,8 +1,22 @@
 
+import { prisma } from "@/lib/prisma";
 import React from "react";
 
 const OrganizationPage = async ({ params }) => {
-  const organization = await fetch(`/api/organization/${params.organizationId}`);
+  const organization = await prisma.organization.findUnique({
+    where: {
+      id: params.organizationId,
+    },
+    include: {
+      members: {
+        include: {
+          member: true,
+        },
+      },
+      owner: true,
+      tasks: true,
+    },
+  });
 
   const tasks = organization?.tasks;
   const members = [...organization?.members.map((member) => member.member), organization.owner];

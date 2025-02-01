@@ -1,5 +1,6 @@
 
 
+import { prisma } from "@/lib/prisma";
 import TaskForm from "./_components/task-form";
 
 const Taskpage = async ({ params }) => {

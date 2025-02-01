@@ -43,6 +43,7 @@ const TaskForm = ({ initialData, members = [] }) => {
         const response = await axios.post("/api/tasks", data);
         if (response.status === 200) {
           // window.location.reload()
+          router.refresh()
           router.push(`/dashboard/organization/${organizationId}`);
         }
       }

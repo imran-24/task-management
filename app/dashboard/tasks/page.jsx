@@ -22,7 +22,9 @@ export default function TaskList() {
 
   const handleComplete = async (taskId) => {
     try {
-      const { data } = await axios.put(`/api/tasks/${taskId}`);
+      const { data } = await axios.put(`/api/tasks/${taskId}`,{
+        isCompleted: true
+      });
       if (data) {
         setTasks(
           tasks.map((task) =>
@@ -60,12 +62,14 @@ export default function TaskList() {
                 <p>Priority: {task.priority}</p>
                 <p>Deadline: {new Date(task.deadline).toLocaleString()}</p>
               </div>
-              <button
+              {task.isCompleted ? 
+                <p>Done</p>
+              :<button
                 onClick={() => handleComplete(task.id)}
                 className='mt-4 w-fit bg-green-500 text-white p-2 rounded-xl hover:bg-green-600 transition-colors duration-200'
               >
                 Mark as Complete
-              </button>
+              </button>}
             </div>
           ))
         ) : (

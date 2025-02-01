@@ -7,10 +7,19 @@ export async function GET(request, { params }) {
 
   try {
     const organization = await prisma.organization.findUnique({
-      where: {
-        id: params.organizationId,
+    where: {
+      id: params.organizationId,
+    },
+    include: {
+      members: {
+        include: {
+          member: true,
+        },
       },
-    });
+      owner: true,
+      tasks: true,
+    },
+  });
 
     if (!organization) {
       return new NextResponse("Organization not found", { status: 404 });

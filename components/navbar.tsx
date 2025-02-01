@@ -13,28 +13,31 @@ const Navbar = () => {
         <Link href='/' className='text-2xl font-bold'>
           TaskFlow Solutions
         </Link>
-        {user ? (
-          <div className='space-x-4'>
-            <Link href='/dashboard' className='hover:underline'>
-              Dashboard
-            </Link>
-            <Link href='/dashboard/organization' className='hover:underline'>
-              Organizations
-            </Link>
-            <Link href='/dashboard/tasks' className='hover:underline'>
-              Tasks
-            </Link>
+        {
+          user && (
+            <div className='space-x-4'>
+              <Link href='/dashboard' className='hover:underline'>
+                Dashboard
+              </Link>
+              <Link href='/dashboard/organization' className='hover:underline'>
+                Organizations
+              </Link>
+              <Link href='/dashboard/tasks' className='hover:underline'>
+                Tasks
+              </Link>
 
-            <Link href='/dashboard/invites' className='hover:underline'>
-              Invites
-            </Link>
-            <Link href='/dashboard/notifications' className='hover:underline'>
-              Notifications
-            </Link>
-          </div>
-        ) : (
-          <p className='text-white text-sm'>Loading...</p>
-        )}
+              <Link href='/dashboard/invites' className='hover:underline'>
+                Invites
+              </Link>
+              <Link href='/dashboard/notifications' className='hover:underline'>
+                Notifications
+              </Link>
+            </div>
+          )
+          // : (
+          //   <p className='text-white text-sm'>Loading...</p>
+          // )
+        }
       </div>
     </nav>
   );
